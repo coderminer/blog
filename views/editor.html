@@ -32,9 +32,10 @@
 </head>
 
 <body>
+    <div class="alert alert-danger" role="alert" id="alert" style="display: none"></div>
     <div class="top-header">
-        <input type="text" placeholder="请输入文章标题..." class="title-content" id="title-val" value="">
-        <button type="button" class="btn btn-primary" >发布文章</button>
+        <input type="text" placeholder="请输入文章标题..." class="title-content" id="blog-title" value="">
+        <button type="button" class="btn btn-primary" id="submit">发布文章</button>
     </div>
     <div>
         <textarea id="editor"></textarea>
@@ -54,6 +55,37 @@
                 },
             });
             simplemde.toggleSideBySide();
+
+            $('#submit').click(function(){
+                var title = $("#blog-title").val();
+                var origin = simplemde.value();
+                var content = simplemde.markdown(origin);
+                if(title.length == 0){
+                    $('#alert').show();
+                    $('#alert').text("请输入标题信息");
+                    setTimeout(function(){
+                        $("#alert").hide();  
+                    },2000)
+                }
+                if(origin.length == 0){
+                    $('#alert').show();
+                    $('#alert').text("请输入具体的博客内容");
+                    setTimeout(function(){
+                        $("#alert").hide();  
+                    },2000)
+                }
+
+                $.ajax({
+                    url:'/editor',
+                    method:'POST',
+                    data:{title:title,origin:origin,content:content},
+                    success:function(data){
+                        alert(data)
+                    }
+                })
+
+            })
+            
         });
     </script>
 </body>

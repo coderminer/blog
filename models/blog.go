@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/coderminer/blog/db"
+)
 
 type BlogModel struct {
 	Id       string     `bson:"_id"`
@@ -17,3 +21,11 @@ type TagModel struct {
 	Name string `bson:"name"`
 }
 
+const (
+	database   = "Blog"
+	collection = "BlogModel"
+)
+
+func (b *BlogModel) PostBlog(blog *BlogModel) error {
+	return db.Insert(database, collection, blog)
+}
