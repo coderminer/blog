@@ -81,6 +81,12 @@
                     data:{title:title,origin:origin,content:content},
                     success:function(data){
                         alert(data)
+                        var resp = JSON.parse(data)
+                        if(resp.status == 0){
+                            window.location.href="/blog";
+                        }else{
+                            alert(JSON.parse(resp.msg))
+                        }
                     }
                 })
 

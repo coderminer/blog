@@ -58,6 +58,12 @@ func FindAll(db, collection string, query, selector, result interface{}) error {
 	return c.Find(query).Select(selector).All(result)
 }
 
+func FindAllSort(db, collection, sort string, query, selector, result interface{}) error {
+	ms, c := connect(db, collection)
+	defer ms.Close()
+	return c.Find(query).Select(selector).Sort(sort).All(result)
+}
+
 func FindWithPage(db, collection, sort string, page, limit int, query, selector, result interface{}) error {
 	ms, c := connect(db, collection)
 	defer ms.Close()

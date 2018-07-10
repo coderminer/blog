@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link href="https://cdn.bootcss.com/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet">
+
+    <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/paraiso-dark.min.css" rel="stylesheet">
+    <title>{{.Content.Title}}</title>
+
+</head>
+
+<body class="home-template">
+
+
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content">
+                    <article class="post ">
+                        <div class="post-head">
+                            <h1 class="post-title">
+                                {{.Content.Title}}
+                            </h1>
+                            <div class="post-meta">
+                                <span class="author">
+                                    作者:
+                                    <a href="https://github.com/coderminer">{{.Content.Author}}</a>
+                                </span>
+                                <time class="post-date">{{dateformat .Content.Date "2006年01月02日"}}</time>
+                            </div>
+                        </div>
+
+                        <div class="post-content markdown-body">
+                            <p>{{str2html .Content.Content}}</p>
+                        </div>
+
+                        <footer class="post-footer clearfix">
+                            <div class="pull-left tag-list">
+                                <i class="fa fa-folder-open-o">
+                                    {{range .Content.Tags}}
+                                    <a href="/blog/tag/{{.Id}}">{{.Name}}</a>
+                                    {{end}}
+
+                                </i>
+                            </div>
+                        </footer>
+                    </article>
+                </main>
+                <aside class="col-md-4 sidebar">
+                    <div class="widget">
+                        <h4 class="title">最近</h4>
+                        
+                        <a href="/blog/post/{{.Id}}" class="btn btn-default btn-block">最近的文章</a>
+                        
+                    </div>
+                    <div class="widget">
+                        <h4 class="title">关于</h4>
+                        <div class="content">
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </section>
+
+    <a href="#" id="back-to-top" style="display: block">
+        <i class="fa fa-angle-up"></i>
+    </a>
+
+</body>
+
+</html>

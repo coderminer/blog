@@ -2,11 +2,14 @@ package controllers
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/astaxie/beego"
 	"github.com/coderminer/blog/models"
+	"github.com/coderminer/blog/utils"
 	"github.com/globalsign/mgo/bson"
+	stripmd "github.com/writeas/go-strip-markdown"
 )
 
 type EditorController struct {
@@ -33,11 +36,31 @@ func (this *EditorController) Post() {
 		Id:       bson.NewObjectId().Hex(),
 		Title:    title,
 		Original: origin,
+		Summary:  getDes(origin),
 		Content:  content,
 		Date:     time.Now(),
+		Author:   "CoderMiner",
+		Img:      "http://7xplrz.com1.z0.glb.clouddn.com/jianshu/android/133H_1.jpg",
 	}
 
-	blog.PostBlog(blog)
+	resp := utils.Response{
+		Status: 0,
+	}
+	defer resp.WriteJson(this.Ctx.ResponseWriter)
 
-	this.ServeJSON()
+	err := blog.PostBlog(blog)
+	if err != nil {
+		resp = utils.Response{
+			Status: -1,
+			Msg:    "post blog error",
+		}
+	}
+
+}
+
+func getDes(origin string) string {
+	original := stripmd.Strip(origin)
+	des := strings.Replace(original, "\n", "", -1)
+	desrune := []rune(des)
+	return string(desrune[:150])
 }

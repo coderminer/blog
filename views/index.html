@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <title>Document</title>
+
+</head>
+
+<body class="home-template">
+    <main class="site-main outer" style="margin-top:120px">
+        <div class="inner">
+            <div class="post-feed">
+                {{range .Blogs}}
+                <article class="post-card">
+                    <a class="post-card-image-link" href="/blog/{{.Id}}">
+                        {{if .Img}}
+                        <div class="post-card-image" style="background-image: url({{.Img}})">
+
+                        </div>
+                        {{end}}
+                    </a>
+                    <div class="post-card-content">
+                        <a class="post-card-content-link" href="/blog/{{.Id}}">
+                            <header class="post-card-header">
+                                <span class="post-card-tags">Golang</span>
+
+                                <h2 class="post-card-title">{{.Title}}</h2>
+                            </header>
+                            <section class="post-card-excerpt">
+                                <p>
+                                    {{.Summary}}
+                                </p>
+                            </section>
+                        </a>
+                        <footer class="post-card-meta">
+                            <span class="post-card-author">
+                                <a href="https://github.com/coderminer">{{.Author}}</a>
+                            </span>
+                            <span class="post-card-date">{{dateformat .Date "2006年01月02日"}}</span>
+                        </footer>
+                    </div>
+                </article>
+                {{end}}
+
+            </div>
+        </div>
+    </main>
+
+    <div></div>
+    <a href=""></a>
+</body>
+
+</html>
